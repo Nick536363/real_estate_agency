@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Flat
+from .models import Flat, Complaint
 
 
 class Admin(admin.ModelAdmin):
@@ -11,3 +11,4 @@ class Admin(admin.ModelAdmin):
 
 
 admin.site.register(Flat, Admin)
+admin.site.register(Complaint)
