@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Flat, Complaint, Owner
 
 
-class Admin(admin.ModelAdmin):
+class FlatOptions(admin.ModelAdmin):
     search_fields = ("address", "town", "owner")
     readonly_fields = ["created_at"]
     list_display = ["address", "price", "new_building", "construction_year", "town"]
@@ -10,6 +10,11 @@ class Admin(admin.ModelAdmin):
     list_filter = ["new_building"]
     raw_id_fields = ["liked_by"]
 
-admin.site.register(Flat, Admin)
+
+class OwnerOptions(admin.ModelAdmin):
+    raw_id_fields = ["owned_flats"]
+
+
+admin.site.register(Flat, FlatOptions)
 admin.site.register(Complaint)
-admin.site.register(Owner)
+admin.site.register(Owner, OwnerOptions)
