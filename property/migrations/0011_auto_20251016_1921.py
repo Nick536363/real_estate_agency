@@ -7,11 +7,10 @@ def correct_phonenumbers(apps, schema_editor):
     Flat = apps.get_model("property", "Flat")
     for flat in Flat.objects.all():
         correct_number = parse(flat.owners_phonenumber, "RU")
-        flat.owner_pure_phone=correct_number
-        flat.save()
-
-    for flat in Flat.objects.filter(is_valid_number(owner_pure_phone)==False):
-        flat.owner_pure_phone.national_number = 0000000000
+        flat.owner_pure_phone = correct_number
+        if(not is_valid_number(flat.owner_pure_phone)):
+            flat.owner_pure_phone.national_number = 0000000000
+            flat.save()
         flat.save()
 
 
