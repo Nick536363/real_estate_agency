@@ -3,7 +3,7 @@ from .models import Flat, Complaint, Owner
 
 
 class AdminInline(admin.TabularInline):
-    model = Flat.flat_owner.through
+    model = Flat.owners.through
     raw_id_fields = ["owner", "flat"]
 
 
@@ -15,10 +15,10 @@ class FlatOptions(admin.ModelAdmin):
     list_filter = ["new_building"]
     raw_id_fields = ["liked_by"]
     inlines = [AdminInline]
-    exclude = ["flat_owner"]
+    exclude = ["owners"]
 
 class OwnerOptions(admin.ModelAdmin):
-    raw_id_fields = ["owned_flats"]    
+    raw_id_fields = ["flats"]    
 
 
 admin.site.register(Flat, FlatOptions)
