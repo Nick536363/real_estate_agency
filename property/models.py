@@ -48,17 +48,36 @@ class Flat(models.Model):
         blank=True,
         db_index=True)
 
-    new_building = models.BooleanField(verbose_name="Являеться ли новостройкой",null=True, db_index=True)
-    liked_by = models.ManyToManyField(User, related_name="liked_flats", verbose_name="Кто лайкнул", blank=True)
-    owner_pure_phone = PhoneNumberField(region="RU", null=True, verbose_name="Номер телефона владельца")
+    new_building = models.BooleanField(
+        verbose_name="Являеться ли новостройкой", 
+        null=True, 
+        db_index=True)
+    liked_by = models.ManyToManyField(
+        User, 
+        related_name="liked_flats", 
+        verbose_name="Кто лайкнул", 
+        blank=True)
+    owner_pure_phone = PhoneNumberField(
+        region="RU", 
+        null=True, 
+        verbose_name="Номер телефона владельца")
 
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
 
     
 class Complaint(models.Model):
-    flat = models.ForeignKey(Flat, verbose_name="Место жительства", related_name="complaints" ,on_delete=models.CASCADE)
-    author = models.ForeignKey(User, verbose_name="Автор жалобы", related_name="complaints" ,on_delete=models.CASCADE, null=True)
+    flat = models.ForeignKey(
+        Flat, 
+        verbose_name="Место жительства", 
+        related_name="complaints", 
+        on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        User, 
+        verbose_name="Автор жалобы", 
+        related_name="complaints", 
+        on_delete=models.CASCADE, 
+        null=True)
     text = models.TextField("Текст жалобы")
 
     def __str__(self):
@@ -67,7 +86,14 @@ class Complaint(models.Model):
 
 class Owner(models.Model):
     owner = models.CharField('ФИО владельца', max_length=200)
-    owner_pure_phone = PhoneNumberField(region="RU", null=True, verbose_name="Нормализированный номер владельца")
-    flats = models.ManyToManyField(Flat, related_name="owners", verbose_name="Квартиры в собственности", blank=True)
+    owner_pure_phone = PhoneNumberField(
+        region="RU", 
+        null=True, 
+        verbose_name="Нормализированный номер владельца")
+    flats = models.ManyToManyField(
+        Flat, 
+        related_name="owners", 
+        verbose_name="Квартиры в собственности", 
+        blank=True)
     def __str__(self):
         return f"{self.owner}"
