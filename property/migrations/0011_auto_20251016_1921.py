@@ -5,7 +5,7 @@ from phonenumbers import parse, is_valid_number
 
 def correct_phonenumbers(apps, schema_editor):
     Flat = apps.get_model("property", "Flat")
-    for flat in Flat.objects.all():
+    for flat in Flat.objects.all().iterator():
         correct_number = parse(flat.owners_phonenumber, "RU")
         flat.owner_pure_phone = correct_number
         if(not is_valid_number(flat.owner_pure_phone)):
