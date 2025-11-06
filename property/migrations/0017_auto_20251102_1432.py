@@ -17,7 +17,7 @@ def get_flat_owners(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('property', '0012_owner'),
+        ('property', '0016_remove_complaint_user_remove_owner_owned_flats_and_more'),
     ]
 
     operations = [
