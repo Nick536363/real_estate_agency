@@ -5,7 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Flat(models.Model):
-    owner = models.CharField('ФИО владельца', max_length=200)
+    owner = models.ForeignKey("Owner", verbose_name="Владелец", on_delete=models.CASCADE)
     created_at = models.DateTimeField(
         'Когда создано объявление',
         default=timezone.now,
@@ -57,10 +57,6 @@ class Flat(models.Model):
         related_name="liked_flats", 
         verbose_name="Кто лайкнул", 
         blank=True)
-    owner_pure_phone = PhoneNumberField(
-        region="RU", 
-        null=True, 
-        verbose_name="Номер телефона владельца")
 
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
@@ -96,4 +92,4 @@ class Owner(models.Model):
         verbose_name="Квартиры в собственности", 
         blank=True)
     def __str__(self):
-        return f"{self.owner}"
+        return f"{self.name}"
